@@ -1,4 +1,4 @@
-const _data = require('./lib/async-data');
+const _data = require('./lib/data');
 const helpers = require('./lib/helpers');
 const Figuros = require('./js/Figura');
 

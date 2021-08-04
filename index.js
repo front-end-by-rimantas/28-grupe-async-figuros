@@ -1,10 +1,10 @@
 const _data = require('./lib/data');
 const helpers = require('./lib/helpers');
-const Figuros = require('./js/Figura');
+const Figura = require('./js/Figura');
 
 (async () => {
 
-    const figuruDydziai = Figuros.randomFiguros(5);
+    const figuruDydziai = Figura.randomFiguros(5);
     /*
     [
         {width: 5, height: 4},

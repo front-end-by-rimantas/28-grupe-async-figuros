@@ -4,7 +4,9 @@ const Figura = require('./js/Figura');
 
 (async () => {
 
-    const figuruDydziai = Figura.randomFiguros(5);
+    const amount = 5;
+    const figuruDydziai = Figura.randomFiguros(amount);
+    console.log(figuruDydziai);
     /*
     [
         {width: 5, height: 4},
@@ -16,9 +18,26 @@ const Figura = require('./js/Figura');
     */
 
     // sukuriam failus
+    for (let i = 0; i < amount; i++) {
+        await _data.create('figuros', 'figura-' + i, figuruDydziai[i]);
+    }
 
     // perskaitom failus ir atnaujiname
+    for (let i = 0; i < amount; i++) {
+        const textContent = await _data.read('figuros', 'figura-' + i);
+        const { width, height } = helpers.parseJsonToObject(textContent);
+        const plotas = Figura.size(width, height);
+        const hash = helpers.hash(`figura-${width}-${height}-${plotas}`);
+        const updatedObj = {
+            width,
+            height,
+            plotas,
+            hash
+        }
+        await _data.update('figuros', 'figura-' + i, updatedObj);
+    }
 
     // spausdiname visus failu pavadinimus
-
+    const files = await _data.list('figuros');
+    console.log(files);
 })();
